@@ -1,0 +1,4 @@
+Reinforcement Learning NTSC or RL-NTSC:
+
+->  NTSC- Network-level Traffic Signal Control
+->  meaning tested proposed method on 2 or more intersections
