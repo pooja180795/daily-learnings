@@ -2,3 +2,15 @@ Reinforcement Learning NTSC or RL-NTSC:
 
 ->  NTSC- Network-level Traffic Signal Control
 ->  meaning tested proposed method on 2 or more intersections
+
+MDP
+
+->  MDP is a 4 step tuple <state, action, reward function, transition function>
+->  MDP folloes Markov property if the Transition function only depend on current state and action taken, not on sequence of 
+    of events that preceded it. 
+->  If the reward and transition functions are known, the optimal
+    policy can be found using Dynamic Programming (DP) methods via
+    the recursive definitions of the value function.
+->  If R, T are not known then agent have to estimate without the knowledge of it, in this unknown situation RL can be useful
+->  RL is model-based when agent samples environments to estimate reward function and transition function and find optimal policy
+->  While in model-free RL, agent directly estimates Q-function
