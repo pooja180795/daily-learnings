@@ -1,0 +1,20 @@
+Exercises
+
+1)  Describe real-world example that requires sorting and Describe one that requires finding the shortest distance between 
+    two points.
+
+->  If I want to buy a dress online and my budge is $100. then i need to apply filter in price feature so the site will show me
+    all the dresses satrting from min value upto $100.
+
+->  Suppose I need to go to the supermarket by walk/car. and there are many different routes available from home to supermarket,
+    so i need to find shortest path with the help of google map and go there.
+
+2)  suggest a real-world problem where only the best solution will do and then come up with one where approximately the best
+    solution is good enough
+
+->  Suppose for an ambulance goint from hospital to the accident spot, 3 paths are available. but here the shortest best path
+    is most useful.
+
+->  While for delivering 1000 packages in 100 different locations, if we find total 700 km is the minimum distance we should travel
+    but if our algorithm comes up at 750 km in 10 seconds while it needs 5 hours more to calculate 700km. so 750 km is the good 
+    solution.
