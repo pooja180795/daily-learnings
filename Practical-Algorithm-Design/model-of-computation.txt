@@ -1,0 +1,52 @@
+Model of Computation (Word-RAM Model)
+======================================
+
+Why do we need a "model of computation" at all?
+-------------------------------------------------
+Before we can say an algorithm is "fast" or "O(n log n)", we need to agree on
+what a single "step" of computation is allowed to do, and how much it costs.
+The Word-RAM model is the standard model used to analyze algorithms: memory
+is an array of "words", and a small set of operations on words (arithmetic,
+comparison, bitwise ops, reading/writing a word in memory) each cost O(1)
+time.
+
+The size of a word, w, is limited
+----------------------------------
+A word is not allowed to be arbitrarily large. It must satisfy:
+
+    w >= lg n
+
+where:
+  - w = word size = number of bits stored in a single word
+  - n = input size = number of words needed to represent the input
+
+In other words, a word must contain *at least* enough bits to write down an
+index/address into the input (0 to n-1). This lower bound exists so the
+model stays realistic: if we let w grow without bound, we could cheat by
+packing the entire input into a single giant word and "processing" it in
+one O(1) operation, which isn't how real computers work.
+
+Is w large enough to hold ANY integer?
+-----------------------------------------
+No. A word can only hold numbers up to about 2^w. If a problem involves
+numbers bigger than that (e.g. big-integer arithmetic, cryptographic keys),
+those numbers must be stored across multiple words, as an array of words,
+and operating on them (add, multiply, compare) costs more than O(1) - the
+cost is proportional to how many words are needed to represent the number.
+
+What w IS guaranteed to be large enough for:
+  1. Storing the address (pointer) of a data structure - as long as that
+     data structure fits in RAM. Since total RAM is bounded, and a word
+     satisfies w >= lg n, a word can always index/address any memory
+     location the machine actually has.
+  2. Storing an index into the input, when the input is an array of n
+     words. Since w >= lg n by definition of the model, a single word is
+     always big enough to hold any valid index 0..n-1 into that array.
+
+Takeaway
+----------
+The word-RAM model lets us treat array indexing, pointer dereferencing, and
+basic arithmetic/comparison on indices or addresses as O(1) operations -
+but it does NOT let us assume arbitrary-precision arithmetic is O(1). Big
+numbers need multi-word representations, and operations on them cost more
+proportional to their size in words.
