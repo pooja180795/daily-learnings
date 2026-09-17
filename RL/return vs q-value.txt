@@ -1,0 +1,21 @@
+you go from A to B  
+        |
+you take that experience
+        |
+you calculate the return from that experience
+        |
+you use that return to update Q(A, action)
+        |
+next time you are at A 
+        |
+look at learned Q-values
+        |
+choose the action with better Q-value
+
+
+reward - what the agent actually receive
+return - discounted total of future reward from one experience
+Q-value - what the agent had learn to expect from taking an action in a state
+gamma - how strongly the agent values the future rewards 
+
+Q-learning is an off-policy algorithm, it is gaining useful experiance even while exploring actions
