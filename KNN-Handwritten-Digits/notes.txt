@@ -1,0 +1,80 @@
+My first ML program - Learning KNN with handwritten digits
+
+Dataset: Pen-Based Recognition of Handwritten Digits (UCI), given to me as
+pendigits.tra (training, 7494 samples) and pendigits.tes (test, 3498 samples).
+Each digit is stored as 16 numbers - 8 (x, y) points sampled along the pen's
+path while someone drew it - plus the true digit label (0-9).
+
+
+1) What is KNN (K-Nearest Neighbors)?
+
+-> It's the simplest kind of classifier: it doesn't really "learn" a formula.
+   To classify a new example, it just looks at the K most similar examples
+   already seen (its "nearest neighbors") and lets them vote. Whichever
+   label is most common among those K neighbors is the prediction.
+
+   Example: to guess the digit for a new handwriting sample, KNN compares it
+   to every training sample, finds the 3 closest ones (if k=3), and if 2 of
+   them are labeled "7" and 1 is labeled "1", it predicts "7".
+
+
+2) How does it measure "closest"?
+
+-> Distance between feature vectors, usually Euclidean distance (straight-line
+   distance), the same formula as distance between two points on a graph,
+   just extended to 16 dimensions instead of 2. Two digits that were drawn
+   with a similar pen path end up numerically close to each other.
+
+
+3) Why scale the features first?
+
+-> Distance is sensitive to numeric range. If one feature ranged 0-1 and
+   another ranged 0-10000, the second would dominate the distance
+   calculation even if it isn't actually more informative. In this dataset
+   all 16 features already sit in 0-100, so scaling doesn't change results
+   much - but it's the right habit for any dataset where features come in
+   different units.
+
+
+4) What does "k" actually control?
+
+-> How many neighbors get a vote.
+   - k too small (like k=1): the prediction depends on a single neighbor,
+     so one weird/mislabeled training example can flip the answer. This is
+     "overfitting" - the model is too sensitive to noise in training data.
+   - k too large: it starts averaging in neighbors that aren't really that
+     similar, so the decision gets blurry between digits. This is
+     "underfitting".
+   - The fix: try a range of k values and see which one does best on data
+     the model hasn't trained on (the test set). In my run, k=4 gave the
+     best test accuracy (~97.7%), matching what the dataset's original
+     authors found (their table in data/pendigits.names shows ~97-98%
+     across k=1..11).
+
+
+5) Why is there a separate train/test file instead of splitting myself?
+
+-> The researchers made sure the test set was written by different people
+   than the training set ("writer-independent testing"). That's a more
+   honest test: it tells us whether the model generalizes to someone's
+   handwriting it has never seen, not just to more examples from writers it
+   already knows.
+
+
+6) What did the confusion matrix teach me?
+
+-> Row = the true digit, column = what the model predicted. The diagonal is
+   every correct prediction. Off the diagonal, the biggest mix-up in my run
+   was 7 being predicted as 1 (14 times) - which makes sense once you look
+   at the trajectory plot: a "7" and a "1" can both be drawn as a couple of
+   mostly-diagonal strokes if the writer skips the horizontal top stroke of
+   the 7.
+
+
+7) Biggest takeaway
+
+-> KNN has basically no "training" step (it just stores the data), all the
+   work happens at prediction time by comparing distances. That makes it
+   easy to understand and a great first algorithm to learn, but it also
+   means predictions get slower as the training set grows, since every
+   single prediction has to compare against every training example.
