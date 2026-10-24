@@ -19,9 +19,13 @@ def countInversion(arr):
             C.append(L[i])
             i += 1
         else: 
-            C.append(R[j])
-            inv += len(L[i:])
-            j += 1
+            if L[i] > R[j] * 2:
+                C.append(R[j])
+                inv += len(L[i:])
+                j += 1
+            else:
+                C.append(R[j])
+                j += 1
 
     
     C += L[i:] + R[j:]
